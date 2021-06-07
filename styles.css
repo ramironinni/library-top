@@ -62,7 +62,7 @@ h2 {
     padding: 20px 0 20px;
     border-radius: 10px;
     margin-top: 15px;
-    width: 75%;
+    width: 85%;
 }
 
 #add-book-form-container {
@@ -87,7 +87,7 @@ h2 {
     padding: 10px;
     border-radius: 10px;
     border-style: none;
-    width: 80%;
+    width: 90%;
 }
 
 input {
@@ -113,8 +113,8 @@ button[type="submit"] {
 
 #available-books-container {
     background-color: #3f5fb1;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
 #books-tiles-container {
@@ -126,7 +126,8 @@ button[type="submit"] {
 .book-tile {
     width: 100%;
     font-size: 13px;
-    background-color: #019260;
+    background-color: #afafaf;
+    color: #313131;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 10px;
@@ -134,14 +135,32 @@ button[type="submit"] {
     flex-direction: column;
 }
 
+.book-tile-read {
+    background-color: #f0eecb;
+}
+
 .book-tile > p {
     margin: 0;
-    line-height: 1.5;
+    line-height: 1.6;
+}
+
+.book-tile > p:first-child {
+    font-style: italic;
+}
+
+.controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5px;
 }
 
 .delete-button {
-    align-self: flex-end;
     cursor: pointer;
+}
+
+.delete-button:hover {
+    color: #762323;
 }
 
 /* The switch - the box around the slider */
@@ -167,7 +186,7 @@ button[type="submit"] {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgb(153, 153, 153);
+    background-color: #3a3a3a;
     -webkit-transition: 0.4s;
     transition: 0.4s;
 }
@@ -185,11 +204,11 @@ button[type="submit"] {
 }
 
 .switch-input:checked + .slider {
-    background-color: #2196f3;
+    background-color: #019260;
 }
 
 .switch-input:focus + .slider {
-    box-shadow: 0 0 1px #2196f3;
+    box-shadow: 0 0 1px #019260;
 }
 
 .switch-input:checked + .slider:before {

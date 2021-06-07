@@ -79,13 +79,21 @@ window.addEventListener("DOMContentLoaded", () => {
 
             bookTile.dataset.index = i;
 
-            const isRead = book.read;
+            const controlsContainer = document.createElement("div");
+            controlsContainer.classList.add("controls-container");
 
+            const isRead = book.read;
             const toggleIsRead = createToggleSwitchRead(isRead);
-            bookTile.appendChild(toggleIsRead);
+            controlsContainer.appendChild(toggleIsRead);
+
+            isRead
+                ? bookTile.classList.add("book-tile-read")
+                : bookTile.classList.remove("book-tile-read");
 
             const deleteBtn = createDeleteBtn();
-            bookTile.appendChild(deleteBtn);
+            controlsContainer.appendChild(deleteBtn);
+
+            bookTile.appendChild(controlsContainer);
 
             booksTilesContainer.appendChild(bookTile);
         });
@@ -130,7 +138,7 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 
     function toggleReadState(e) {
-        const tile = e.target.parentNode.parentNode;
+        const tile = e.target.parentNode.parentNode.parentNode;
         const index = tile.dataset.index;
         myLibrary[index].read = myLibrary[index].read ? false : true;
         displayBooks();
