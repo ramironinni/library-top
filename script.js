@@ -36,13 +36,14 @@ window.addEventListener("DOMContentLoaded", () => {
     const addBookForm = document.getElementById("add-book-form");
     addBookForm.addEventListener("submit", addBookToLibrary);
 
-    const title = document.getElementById("title");
-    const author = document.getElementById("author");
-    const pages = document.getElementById("pages");
-    const read = document.getElementById("read");
-
     function addBookToLibrary(e) {
         e.preventDefault();
+
+        const title = document.getElementById("title");
+        const author = document.getElementById("author");
+        const pages = document.getElementById("pages");
+        const read = document.getElementById("read");
+
         const newBook = new Book(
             title.value,
             author.value,
@@ -76,39 +77,65 @@ window.addEventListener("DOMContentLoaded", () => {
             pages.innerText = `${book.pages} pages.`;
             bookTile.appendChild(pages);
 
-            bookTile.dataset.indexNumber = i;
+            bookTile.dataset.index = i;
 
-            const deleteBtn = document.createElement("span");
-            deleteBtn.classList.add("material-icons");
-            deleteBtn.classList.add("material-icons-outlined");
-            deleteBtn.classList.add("delete-button");
-            deleteBtn.innerText = "delete_outline";
-            deleteBtn.addEventListener("click", () => {
-                myLibrary.splice(i, 1);
-            });
+            const isRead = book.read;
 
+            const toggleIsRead = createToggleSwitchRead(isRead);
+            bookTile.appendChild(toggleIsRead);
+
+            const deleteBtn = createDeleteBtn();
             bookTile.appendChild(deleteBtn);
 
             booksTilesContainer.appendChild(bookTile);
         });
     }
 
-    displayBooks();
-
-    const deleteBtns = document.querySelectorAll(".delete-button");
-    deleteBtns.forEach((element) => {
-        element.addEventListener("click", deleteBook);
-    });
+    function createDeleteBtn() {
+        const deleteBtn = document.createElement("span");
+        deleteBtn.classList.add("material-icons");
+        deleteBtn.classList.add("material-icons-outlined");
+        deleteBtn.classList.add("delete-button");
+        deleteBtn.innerText = "delete_outline";
+        deleteBtn.addEventListener("click", deleteBook);
+        return deleteBtn;
+    }
 
     function deleteBook(e) {
         const tile = e.target.parentNode;
-        const index = tile.dataset.indexNumber;
-        console.log(index);
+        const index = tile.dataset.index;
+        myLibrary.splice(index, 1);
 
-        // myLibrary.splice(index, 1);
-        console.log(myLibrary[index]);
-        console.log(myLibrary);
-
-        // tile.parentNode.removeChild(tile);
+        tile.parentNode.removeChild(tile);
+        displayBooks();
     }
+
+    function createToggleSwitchRead(isRead) {
+        const label = document.createElement("label");
+        label.classList.add("switch");
+
+        const input = document.createElement("input");
+        input.classList.add("switch-input");
+        input.type = "checkbox";
+        input.checked = isRead;
+        input.addEventListener("change", toggleReadState);
+
+        label.appendChild(input);
+
+        const span = document.createElement("span");
+        span.classList.add("slider");
+        span.classList.add("round");
+        label.appendChild(span);
+        return label;
+    }
+
+    function toggleReadState(e) {
+        const tile = e.target.parentNode.parentNode;
+        const index = tile.dataset.index;
+        myLibrary[index].read = myLibrary[index].read ? false : true;
+        displayBooks();
+        console.log(myLibrary);
+    }
+
+    displayBooks();
 });
