@@ -50,14 +50,17 @@ window.addEventListener("DOMContentLoaded", () => {
             read.checked
         );
         myLibrary.push(newBook);
-        console.log(myLibrary);
+        displayBooks();
     }
 
     function displayBooks() {
         const booksTilesContainer = document.getElementById(
-            "books-tiles-container "
+            "books-tiles-container"
         );
-        myLibrary.forEach((book) => {
+
+        booksTilesContainer.innerText = "";
+
+        myLibrary.forEach((book, i) => {
             const bookTile = document.createElement("div");
             bookTile.classList.add("book-tile");
 
@@ -73,9 +76,39 @@ window.addEventListener("DOMContentLoaded", () => {
             pages.innerText = `${book.pages} pages.`;
             bookTile.appendChild(pages);
 
+            bookTile.dataset.indexNumber = i;
+
+            const deleteBtn = document.createElement("span");
+            deleteBtn.classList.add("material-icons");
+            deleteBtn.classList.add("material-icons-outlined");
+            deleteBtn.classList.add("delete-button");
+            deleteBtn.innerText = "delete_outline";
+            deleteBtn.addEventListener("click", () => {
+                myLibrary.splice(i, 1);
+            });
+
+            bookTile.appendChild(deleteBtn);
+
             booksTilesContainer.appendChild(bookTile);
         });
     }
 
     displayBooks();
+
+    const deleteBtns = document.querySelectorAll(".delete-button");
+    deleteBtns.forEach((element) => {
+        element.addEventListener("click", deleteBook);
+    });
+
+    function deleteBook(e) {
+        const tile = e.target.parentNode;
+        const index = tile.dataset.indexNumber;
+        console.log(index);
+
+        // myLibrary.splice(index, 1);
+        console.log(myLibrary[index]);
+        console.log(myLibrary);
+
+        // tile.parentNode.removeChild(tile);
+    }
 });

@@ -12,14 +12,7 @@ body {
     font-family: "Montserrat", sans-serif;
     margin: 0;
     color: #fff;
-}
-
-.material.icons {
-    font-family: "Material Icons";
-}
-
-.hidden {
-    display: none;
+    background-color: #cccccc;
 }
 
 #page-title {
@@ -38,6 +31,27 @@ h1 {
     margin: 0;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.material.icons {
+    font-family: "Material Icons";
+}
+
+.hidden {
+    display: none;
+}
+
 h2 {
     font-size: 18px;
     text-align: center;
@@ -45,14 +59,17 @@ h2 {
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     padding: 20px 0 20px;
+    border-radius: 10px;
+    margin-top: 15px;
+    width: 75%;
 }
 
 #add-book-form-container {
     background-color: #019260;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #add-book-form {
@@ -65,7 +82,7 @@ h2 {
 .form-item {
     font-size: 13px;
     line-height: 1.15;
-    margin: 0; /* 2 */
+    margin: 0;
     margin-bottom: 15px;
     padding: 10px;
     border-radius: 10px;
@@ -96,16 +113,33 @@ button[type="submit"] {
 
 #available-books-container {
     background-color: #3f5fb1;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 #books-tiles-container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .book-tile {
+    width: 100%;
     font-size: 13px;
     background-color: #019260;
     border-radius: 10px;
-    padding: 5px 10px;
+    padding: 15px;
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.book-tile > p {
+    margin: 0;
+    line-height: 1.5;
+}
+
+.delete-button {
+    align-self: flex-end;
+    cursor: pointer;
 }
