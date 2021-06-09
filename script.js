@@ -1,37 +1,62 @@
 window.addEventListener("DOMContentLoaded", () => {
-    const myLibrary = [
-        {
-            title: "A Study in Scarlet",
-            author: "Sir Arthur Ignatius Conan Doyle",
-            pages: 221,
-            read: true,
-        },
-        {
-            title: "The Call of Cthulhu",
-            author: "H. P. Lovecraft",
-            pages: 67,
-            read: true,
-        },
-        {
-            title: "The Dark Tower: The Gunslinger",
-            author: "Stephen King",
-            pages: 224,
-            read: false,
-        },
-        {
-            title: "Tales of Mystery and Madness",
-            author: "Edgar Allan Poe",
-            pages: 144,
-            read: true,
-        },
-        {
-            title: "The Big Four",
-            author: "Agatha Christie",
-            pages: 125,
-            read: false,
-        },
-    ];
+    const myLibrary = [];
 
+    function checkStoredBooks() {
+        if (localStorage.length === 0) {
+            populateBooksByDefault();
+            setInLocalStorage();
+        } else {
+            getFromLocalStorage();
+        }
+    }
+
+    function populateBooksByDefault() {
+        const defaultBooks = [
+            {
+                title: "A Study in Scarlet",
+                author: "Sir Arthur Ignatius Conan Doyle",
+                pages: 221,
+                read: true,
+            },
+            {
+                title: "The Call of Cthulhu",
+                author: "H. P. Lovecraft",
+                pages: 67,
+                read: true,
+            },
+            {
+                title: "The Dark Tower: The Gunslinger",
+                author: "Stephen King",
+                pages: 224,
+                read: false,
+            },
+            {
+                title: "Tales of Mystery and Madness",
+                author: "Edgar Allan Poe",
+                pages: 144,
+                read: true,
+            },
+            {
+                title: "The Big Four",
+                author: "Agatha Christie",
+                pages: 125,
+                read: false,
+            },
+        ];
+
+        defaultBooks.forEach((book) => myLibrary.push(book));
+    }
+
+    function setInLocalStorage() {
+        myLibraryJSON = JSON.stringify(myLibrary);
+        localStorage.setItem("myLibrary", myLibraryJSON);
+    }
+
+    function getFromLocalStorage() {
+        const storedBooksJSON = localStorage.getItem("myLibrary");
+        const storedBooks = JSON.parse(storedBooksJSON);
+        storedBooks.forEach((book) => myLibrary.push(book));
+    }
     function Book(title, author, pages, read) {
         this.title = title;
         this.author = author;
@@ -58,6 +83,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
         const newBook = new Book(title, author, pages, read);
         myLibrary.push(newBook);
+        setInLocalStorage();
         displayBooks();
     }
 
@@ -149,8 +175,11 @@ window.addEventListener("DOMContentLoaded", () => {
         myLibrary.splice(index, 1);
 
         tile.parentNode.removeChild(tile);
+        setInLocalStorage();
         displayBooks();
     }
+
+    checkStoredBooks();
 
     displayBooks();
 });
