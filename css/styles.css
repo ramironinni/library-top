@@ -66,13 +66,14 @@ h2 {
 }
 
 #add-book-form-container {
-    background-color: #019260;
+    background-color: #666a72;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 #add-book-form {
+    width: 70%;
     margin-top: 10px;
     display: flex;
     flex-direction: column;
@@ -101,7 +102,12 @@ input::placeholder {
 }
 
 .checkbox-container {
-    border-style: dotted;
+    display: flex;
+    justify-content: center;
+}
+
+#is-read {
+    margin: 0 0 0 10px;
 }
 
 button[type="submit"] {
@@ -109,6 +115,7 @@ button[type="submit"] {
     background-color: #8054a3;
     font-weight: 600;
     color: inherit;
+    cursor: pointer;
 }
 
 #available-books-container {
@@ -118,16 +125,16 @@ button[type="submit"] {
 }
 
 #books-tiles-container {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    flex-wrap: wrap;
 }
 
 .book-tile {
     width: 100%;
     font-size: 13px;
     background-color: #afafaf;
-    color: #313131;
+    color: #4f4f4f;
     border-radius: 10px;
     padding: 15px;
     margin-bottom: 10px;
@@ -137,6 +144,7 @@ button[type="submit"] {
 
 .book-tile-read {
     background-color: #f0eecb;
+    color: #313131;
 }
 
 .book-tile > p {

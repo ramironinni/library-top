@@ -13,6 +13,18 @@ window.addEventListener("DOMContentLoaded", () => {
             read: true,
         },
         {
+            title: "The Dark Tower: The Gunslinger",
+            author: "Stephen King",
+            pages: 224,
+            read: false,
+        },
+        {
+            title: "Tales of Mystery and Madness",
+            author: "Edgar Allan Poe",
+            pages: 144,
+            read: true,
+        },
+        {
             title: "The Big Four",
             author: "Agatha Christie",
             pages: 125,
@@ -39,17 +51,12 @@ window.addEventListener("DOMContentLoaded", () => {
     function addBookToLibrary(e) {
         e.preventDefault();
 
-        const title = document.getElementById("title");
-        const author = document.getElementById("author");
-        const pages = document.getElementById("pages");
-        const read = document.getElementById("read");
+        const title = document.getElementById("title").value;
+        const author = document.getElementById("author").value;
+        const pages = document.getElementById("pages").value;
+        const read = document.getElementById("read").checked;
 
-        const newBook = new Book(
-            title.value,
-            author.value,
-            pages.value,
-            read.checked
-        );
+        const newBook = new Book(title, author, pages, read);
         myLibrary.push(newBook);
         displayBooks();
     }
@@ -99,25 +106,6 @@ window.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    function createDeleteBtn() {
-        const deleteBtn = document.createElement("span");
-        deleteBtn.classList.add("material-icons");
-        deleteBtn.classList.add("material-icons-outlined");
-        deleteBtn.classList.add("delete-button");
-        deleteBtn.innerText = "delete_outline";
-        deleteBtn.addEventListener("click", deleteBook);
-        return deleteBtn;
-    }
-
-    function deleteBook(e) {
-        const tile = e.target.parentNode;
-        const index = tile.dataset.index;
-        myLibrary.splice(index, 1);
-
-        tile.parentNode.removeChild(tile);
-        displayBooks();
-    }
-
     function createToggleSwitchRead(isRead) {
         const label = document.createElement("label");
         label.classList.add("switch");
@@ -143,6 +131,25 @@ window.addEventListener("DOMContentLoaded", () => {
         myLibrary[index].read = myLibrary[index].read ? false : true;
         displayBooks();
         console.log(myLibrary);
+    }
+
+    function createDeleteBtn() {
+        const deleteBtn = document.createElement("span");
+        deleteBtn.classList.add("material-icons");
+        deleteBtn.classList.add("material-icons-outlined");
+        deleteBtn.classList.add("delete-button");
+        deleteBtn.innerText = "delete_outline";
+        deleteBtn.addEventListener("click", deleteBook);
+        return deleteBtn;
+    }
+
+    function deleteBook(e) {
+        const tile = e.target.parentNode;
+        const index = tile.dataset.index;
+        myLibrary.splice(index, 1);
+
+        tile.parentNode.removeChild(tile);
+        displayBooks();
     }
 
     displayBooks();

@@ -8,7 +8,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/styles-md.css" media="(min-width: 768px)" />
+    <link rel="stylesheet" href="css/styles-lg.css" media="(min-width: 992px)" />
+    <link rel="stylesheet" href="css/styles-xl.css" media="(min-width: 1200px)" />
     <title>Library</title>
 </head>
 
@@ -33,8 +36,9 @@
                     <label for="pages" class="hidden">Pages</label>
                     <input class="form-item" type="text" name="pages" id="pages" placeholder="Pages">
                     <div class="form-item checkbox-container">
-                        <input type="checkbox" name="read" id="read">
-                        <label for="read" class="">Read</label>
+                        <label class="switch"><input class="switch-input" type="checkbox" name="read" id="read"><span
+                                class="slider round"></span></label>
+                        <p id="is-read">read?</p>
                     </div>
                     <button class="form-item" type="submit">Add</button>
                 </form>
