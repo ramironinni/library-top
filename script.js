@@ -1,50 +1,72 @@
 window.addEventListener("DOMContentLoaded", () => {
     const myLibrary = [];
+    class Book {
+        constructor(title, author, pages, read) {
+            this.title = title;
+            this.author = author;
+            this.pages = pages;
+            this.read = read;
+        }
+
+        info() {
+            return `${this.title} by ${this.author}. ${
+                this.pages
+            } pages. Read: ${this.read ? "yes" : "no"}`;
+        }
+    }
+
+    const defaultBooks = [
+        {
+            title: "A Study in Scarlet",
+            author: "Sir Arthur Ignatius Conan Doyle",
+            pages: 221,
+            read: true,
+        },
+        {
+            title: "The Call of Cthulhu",
+            author: "H. P. Lovecraft",
+            pages: 67,
+            read: true,
+        },
+        {
+            title: "The Dark Tower: The Gunslinger",
+            author: "Stephen King",
+            pages: 224,
+            read: false,
+        },
+        {
+            title: "Tales of Mystery and Madness",
+            author: "Edgar Allan Poe",
+            pages: 144,
+            read: true,
+        },
+        {
+            title: "The Big Four",
+            author: "Agatha Christie",
+            pages: 125,
+            read: false,
+        },
+    ];
 
     function checkStoredBooks() {
         if (localStorage.length === 0) {
-            populateBooksByDefault();
+            populateBooksByDefault(defaultBooks);
             setInLocalStorage();
         } else {
             getFromLocalStorage();
         }
     }
 
-    function populateBooksByDefault() {
-        const defaultBooks = [
-            {
-                title: "A Study in Scarlet",
-                author: "Sir Arthur Ignatius Conan Doyle",
-                pages: 221,
-                read: true,
-            },
-            {
-                title: "The Call of Cthulhu",
-                author: "H. P. Lovecraft",
-                pages: 67,
-                read: true,
-            },
-            {
-                title: "The Dark Tower: The Gunslinger",
-                author: "Stephen King",
-                pages: 224,
-                read: false,
-            },
-            {
-                title: "Tales of Mystery and Madness",
-                author: "Edgar Allan Poe",
-                pages: 144,
-                read: true,
-            },
-            {
-                title: "The Big Four",
-                author: "Agatha Christie",
-                pages: 125,
-                read: false,
-            },
-        ];
-
-        defaultBooks.forEach((book) => myLibrary.push(book));
+    function populateBooksByDefault(defaultBooks) {
+        defaultBooks.forEach((book) => {
+            const newBook = new Book(
+                book.title,
+                book.author,
+                book.pages,
+                book.read
+            );
+            myLibrary.push(newBook);
+        });
     }
 
     function setInLocalStorage() {
@@ -57,18 +79,6 @@ window.addEventListener("DOMContentLoaded", () => {
         const storedBooks = JSON.parse(storedBooksJSON);
         storedBooks.forEach((book) => myLibrary.push(book));
     }
-    function Book(title, author, pages, read) {
-        this.title = title;
-        this.author = author;
-        this.pages = pages;
-        this.read = read;
-    }
-
-    Book.prototype.info = function () {
-        return `${this.title} by ${this.author}. ${this.pages} pages. Read: ${
-            this.read ? "yes" : "no"
-        }`;
-    };
 
     const addBookForm = document.getElementById("add-book-form");
     addBookForm.addEventListener("submit", addBookToLibrary);
@@ -156,7 +166,6 @@ window.addEventListener("DOMContentLoaded", () => {
         const index = tile.dataset.index;
         myLibrary[index].read = myLibrary[index].read ? false : true;
         displayBooks();
-        console.log(myLibrary);
     }
 
     function createDeleteBtn() {
